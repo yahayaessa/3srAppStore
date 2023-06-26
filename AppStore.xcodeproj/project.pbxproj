@@ -7,19 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		857F59802A4860AB0030E73E /* RegisterScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F597F2A485A670030E73E /* RegisterScreen.swift */; };
+		8585C36C2A47838B0052D8D4 /* YAButtonBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8585C36B2A47838B0052D8D4 /* YAButtonBackground.swift */; };
+		8585C36E2A47850B0052D8D4 /* YETextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8585C36D2A47850B0052D8D4 /* YETextField.swift */; };
 		8599D0572A4310F900836FB1 /* AppStoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8599D0562A4310F900836FB1 /* AppStoreApp.swift */; };
-		8599D0592A4310F900836FB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8599D0582A4310F900836FB1 /* ContentView.swift */; };
+		8599D0592A4310F900836FB1 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8599D0582A4310F900836FB1 /* LoginScreen.swift */; };
 		8599D05B2A4310FA00836FB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8599D05A2A4310FA00836FB1 /* Assets.xcassets */; };
 		8599D05F2A4310FA00836FB1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8599D05E2A4310FA00836FB1 /* Preview Assets.xcassets */; };
+		8599D06F2A431AB000836FB1 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8599D06B2A431AB000836FB1 /* TabBarView.swift */; };
+		8599D0712A431AB000836FB1 /* TabBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8599D06D2A431AB000836FB1 /* TabBarItemView.swift */; };
+		8599D0722A431AB000836FB1 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8599D06E2A431AB000836FB1 /* MenuItemView.swift */; };
+		8599D0752A43230600836FB1 /* Color++hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8599D0742A43230600836FB1 /* Color++hex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		857F597F2A485A670030E73E /* RegisterScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreen.swift; sourceTree = "<group>"; };
+		8585C36B2A47838B0052D8D4 /* YAButtonBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAButtonBackground.swift; sourceTree = "<group>"; };
+		8585C36D2A47850B0052D8D4 /* YETextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YETextField.swift; sourceTree = "<group>"; };
 		8599D0532A4310F900836FB1 /* AppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8599D0562A4310F900836FB1 /* AppStoreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreApp.swift; sourceTree = "<group>"; };
-		8599D0582A4310F900836FB1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8599D0582A4310F900836FB1 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		8599D05A2A4310FA00836FB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8599D05C2A4310FA00836FB1 /* AppStore.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppStore.entitlements; sourceTree = "<group>"; };
 		8599D05E2A4310FA00836FB1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8599D06B2A431AB000836FB1 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		8599D06D2A431AB000836FB1 /* TabBarItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemView.swift; sourceTree = "<group>"; };
+		8599D06E2A431AB000836FB1 /* MenuItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		8599D0742A43230600836FB1 /* Color++hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color++hex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +47,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		857F597D2A485A490030E73E /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				857F597F2A485A670030E73E /* RegisterScreen.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		857F597E2A485A540030E73E /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				857F597D2A485A490030E73E /* Register */,
+				8599D0692A43195200836FB1 /* Login */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		8585C36A2A4783710052D8D4 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				8585C36B2A47838B0052D8D4 /* YAButtonBackground.swift */,
+				8585C36D2A47850B0052D8D4 /* YETextField.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		8599D04A2A4310F900836FB1 = {
 			isa = PBXGroup;
 			children = (
@@ -52,10 +92,13 @@
 		8599D0552A4310F900836FB1 /* AppStore */ = {
 			isa = PBXGroup;
 			children = (
-				8599D0562A4310F900836FB1 /* AppStoreApp.swift */,
-				8599D0582A4310F900836FB1 /* ContentView.swift */,
-				8599D05A2A4310FA00836FB1 /* Assets.xcassets */,
+				8585C36A2A4783710052D8D4 /* CustomView */,
+				8599D0732A4322F800836FB1 /* Extension */,
 				8599D05C2A4310FA00836FB1 /* AppStore.entitlements */,
+				8599D0682A43193B00836FB1 /* Recs */,
+				8599D0672A43192F00836FB1 /* App */,
+				8599D0662A43192A00836FB1 /* Model */,
+				8599D0652A43191F00836FB1 /* Screen */,
 				8599D05D2A4310FA00836FB1 /* Preview Content */,
 			);
 			path = AppStore;
@@ -67,6 +110,64 @@
 				8599D05E2A4310FA00836FB1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8599D0652A43191F00836FB1 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				857F597E2A485A540030E73E /* Auth */,
+				8599D06A2A431A7800836FB1 /* CustomTabView */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
+		8599D0662A43192A00836FB1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8599D0672A43192F00836FB1 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8599D0562A4310F900836FB1 /* AppStoreApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		8599D0682A43193B00836FB1 /* Recs */ = {
+			isa = PBXGroup;
+			children = (
+				8599D05A2A4310FA00836FB1 /* Assets.xcassets */,
+			);
+			path = Recs;
+			sourceTree = "<group>";
+		};
+		8599D0692A43195200836FB1 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				8599D0582A4310F900836FB1 /* LoginScreen.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		8599D06A2A431A7800836FB1 /* CustomTabView */ = {
+			isa = PBXGroup;
+			children = (
+				8599D06E2A431AB000836FB1 /* MenuItemView.swift */,
+				8599D06D2A431AB000836FB1 /* TabBarItemView.swift */,
+				8599D06B2A431AB000836FB1 /* TabBarView.swift */,
+			);
+			path = CustomTabView;
+			sourceTree = "<group>";
+		};
+		8599D0732A4322F800836FB1 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8599D0742A43230600836FB1 /* Color++hex.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +240,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8599D0592A4310F900836FB1 /* ContentView.swift in Sources */,
+				8599D0592A4310F900836FB1 /* LoginScreen.swift in Sources */,
+				8599D06F2A431AB000836FB1 /* TabBarView.swift in Sources */,
+				8599D0712A431AB000836FB1 /* TabBarItemView.swift in Sources */,
+				857F59802A4860AB0030E73E /* RegisterScreen.swift in Sources */,
+				8585C36E2A47850B0052D8D4 /* YETextField.swift in Sources */,
+				8599D0722A431AB000836FB1 /* MenuItemView.swift in Sources */,
 				8599D0572A4310F900836FB1 /* AppStoreApp.swift in Sources */,
+				8599D0752A43230600836FB1 /* Color++hex.swift in Sources */,
+				8585C36C2A47838B0052D8D4 /* YAButtonBackground.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
