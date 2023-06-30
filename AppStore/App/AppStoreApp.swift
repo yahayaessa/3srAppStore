@@ -12,7 +12,10 @@ struct AppStoreApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
+                
                 LoginScreen()
+                    .environment(\.layoutDirection, .rightToLeft)
+
             }
 //            TabBarView()
         }

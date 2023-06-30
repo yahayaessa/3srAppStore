@@ -35,6 +35,6 @@ struct TabBarItemView: View {
 
 struct TabBarIcon_Previews: PreviewProvider {
     static var previews: some View {
-        TabBarItemView(selected: .constant(.home), tab: .home, width: 80, height: 80)
+        TabBarItemView(selected: .constant(.category), tab: .category, width: 80, height: 80)
     }
 }

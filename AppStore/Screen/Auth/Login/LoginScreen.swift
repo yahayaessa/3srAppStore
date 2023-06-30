@@ -9,70 +9,61 @@ import SwiftUI
 
 
 struct LoginScreen: View {
-    @State private var username: String = ""
+    @State private var email: String = ""
     @State private var password: String = ""
     
     var body: some View {
-        VStack {
-            Text("تسجيل الدخول")
-              .font(Font.custom("Inter", size: 20))
-              .multilineTextAlignment(.center)
-              .foregroundColor(Color(red: 0.04, green: 0.45, blue: 0.97)).padding(.top,50)
-            Image("Layer 1") // Replace "logo" with the name of your app's logo image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 90, height: 200)
+        GeometryReader{context in
+            VStack {
+                Text("تسجيل الدخول")
+                    .font(Font.custom("Inter", size: 20))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(Color(red: 0.04, green: 0.45, blue: 0.97)).padding(.top,50)
                 
-            
-            ZStack {
-                Rectangle()
-                .foregroundColor(.clear)
+                Image("Layer 1") // Replace "logo" with the name of your app's logo image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 90, height: 200)
                 
-                .background(Color(red: 0.04, green: 0.45, blue: 0.97).opacity(0.1))
-                .cornerRadius(30)
-                VStack{
-                    YETextField(image: "Message", placeholder: "البريد الالكتروني", text: $username).padding(.bottom, 20)
-                    
-                    YETextField(image: "Password", placeholder: "كلمة المرور", text: $password)
-                        .padding(.bottom, 20)
-                    
-                    Button(action: {
-                        // Handle forgot password button action here
-                    }) {
-                        YAButtonBackground(title: "تسجيل الدخول")
-                    }.padding(.bottom, 20)
-                    
-                    NavigationLink("ليس لديك حساب؟ إنشاء حساب"){
-                        RegisterScreen()
-                    }
-                  
-                    Spacer()
-                    Button(action: {
-                        // Handle forgot password button action here
-                    }) {
-                        Text("التسجيل عن طريق معرف الجهاز UUID")
-                            .foregroundColor(.black)
-                    }
-                    Spacer()
-                    Spacer()
-                    Button(action: {
-                        // Handle forgot password button action here
-                    }) {
-                        Text("هل نسيت كلمة المرور؟")
-                            .foregroundColor(.black)
-                    }
-                    Spacer()
-                    
-                }    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading).padding(.top,32).padding(.horizontal,24)
+                Form{
+                    YETextField(image: "Message", type: .normal, placeholder: "البريد الالكتروني", text: $email)
+                    YETextField(image: "Password", type: .secure, placeholder: "كلمة المرور", text: $password)
 
-               
-                Spacer()
+                    Section{
+                        ZStack(alignment: .leading) {
+                            YAButtonBackground(title: "تسجيل الدخول")
+                                NavigationLink(destination: TabBarView(selected: .home).navigationBarHidden(true).environment(\.layoutDirection, .rightToLeft)) {
+                                    EmptyView()
+                                }
+                                .opacity(0.0)
+                            }                       
+                        NavigationLink{
+                            RegisterScreen().navigationBarHidden(true)                    .environment(\.layoutDirection, .rightToLeft)
+
+                        }label:{
+                            Text("ليس لديك حساب؟ إنشاء حساب"
+                            ).frame(minWidth: context.size.width)}
+                        Button(action: {
+                        }) {
+                            Text("التسجيل عن طريق معرف الجهاز UUID")
+                                .foregroundColor(.black)
+                        }.frame(minWidth: context.size.width)
+                        Button(action: {
+                            // Handle forgot password button action here
+                        }) {
+                            Text("هل نسيت كلمة المرور؟")
+                                .foregroundColor(.black)
+                        }.frame(minWidth: context.size.width)
+                    }.listRowBackground(Color.clear).listRowSeparator(.hidden)
+                }.frame(minWidth: 0, maxWidth: .infinity, minHeight: context.size.height, maxHeight: .infinity, alignment: .center).padding(.horizontal,0).background(Rectangle()
+                    .foregroundColor(.clear)
+                    .background(Color(red: 0.04, green: 0.45, blue: 0.97).opacity(0.1))
+                    .cornerRadius(30)).scrollContentBackground(.hidden).edgesIgnoringSafeArea(.bottom)
+                
             }
-        }.edgesIgnoringSafeArea(.bottom)
-        
+        }
     }
 }
-
 struct LoginScreen_Previews: PreviewProvider {
     static var previews: some View {
         LoginScreen()
