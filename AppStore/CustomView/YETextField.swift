@@ -22,15 +22,15 @@ struct YETextField:View{
                     .padding(.leading, 8)
                 switch type{
                 case.normal:
-                    TextField(placeholder, text: text)
+                    TextField(placeholder, text: text).font(Font.custom(appFont, size: 16))
                         .padding(8)
                 case.secure:
-                    SecureField(placeholder, text: text)
+                    SecureField(placeholder, text: text).font(Font.custom(appFont, size: 16))
                         .padding(8)
                 }
                 
             
-        }.background(.white).cornerRadius(8)
+            }.frame(height: 40).background(.white).cornerRadius(8)
         }
     }
 

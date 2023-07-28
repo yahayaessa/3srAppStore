@@ -9,7 +9,7 @@ import SwiftUI
 
 enum Tab: String {
     case home = "الرئيسية"
-    case present = "الشروحات"
+    case products = "المنتجات"
     case category = "الاقسام"
     case myorders = "طلباتي"
     case user = "الحساب"
@@ -17,7 +17,7 @@ enum Tab: String {
     var image: String {
         switch self {
         case .home: return "home"
-        case .present: return "Discovery"
+        case .products: return "Discovery"
         case .category: return "Category"
         case .myorders: return "Bag1"
         case .user: return "Profile 1"
@@ -33,18 +33,17 @@ struct TabBarView: View {
         NavigationView {
             GeometryReader { geometry in
                 VStack {
-                    Spacer()
                     switch selected {
                     case .home:
-                        HomeScreen()
-                    case .present:
-                        Text(Tab.present.rawValue)
+                        HomeScreen().navigationBarTitleDisplayMode(.inline)
+                    case .products:
+                            ProductsScreen().environmentObject(ProductsViewModel(category: nil))
                     case .category:
-                        Text(Tab.category.rawValue)
+                        CategoriesScreen().environmentObject(CategoryViewModel()).navigationBarTitleDisplayMode(.inline)
                     case .myorders:
-                        Text(Tab.myorders.rawValue)
+                        OrdersScreen().environmentObject(OrderViewModel()).navigationBarTitleDisplayMode(.inline)
                     case .user:
-                        Text(Tab.user.rawValue)
+                        AccountScreen().navigationBarTitleDisplayMode(.inline)
                     }
                     
                     Spacer()
@@ -56,7 +55,7 @@ struct TabBarView: View {
                             
                             TabBarItemView(selected: $selected, tab: .category, width: geometry.size.width/5, height: geometry.size.height/28)
                             
-                            TabBarItemView(selected: $selected, tab: .present, width: geometry.size.width/5, height: geometry.size.height/28)
+                            TabBarItemView(selected: $selected, tab: .products, width: geometry.size.width/5, height: geometry.size.height/28)
                             
                             ZStack {
                                 Circle()
@@ -78,8 +77,8 @@ struct TabBarView: View {
                             
                             TabBarItemView(selected: $selected, tab: .user, width: geometry.size.width/5, height: geometry.size.height/28)
                         }
-                        .frame(width: geometry.size.width, height: geometry.size.height/8)
-                        .background(Color.white.opacity(0.9).shadow(radius: 0.5))
+                        .frame(width: geometry.size.width, height: geometry.size.height/8 )
+                        .background(Color.gray.opacity(0.03))
                     }
                 }
                 .edgesIgnoringSafeArea(.bottom)
@@ -91,6 +90,6 @@ struct TabBarView: View {
 
 struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TabBarView(selected: Tab.home)
+        TabBarView(selected: Tab.home).environmentObject(HomeViewModel()).environmentObject(CategoryViewModel()).environmentObject(ApplicationsViewModel()).environmentObject(AuthViewModel())
     }
 }

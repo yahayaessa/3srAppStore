@@ -22,7 +22,7 @@ struct TabBarItemView: View {
                 .frame(width: width, height: height)
                 .padding(.top, 10)
             Text(tab.rawValue)
-                .font(.footnote)
+                .font(.custom(appFont, size: 12))
             Spacer()
         }
         .padding(.horizontal, -4)

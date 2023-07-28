@@ -14,7 +14,6 @@ struct YAButtonBackground:View{
     var body: some View{
         Rectangle()
             .foregroundColor(.clear)
-            .frame( height: 55)
             .background(
                 LinearGradient(
                     stops: [
@@ -26,7 +25,7 @@ struct YAButtonBackground:View{
                 )
             )
             .cornerRadius(14).overlay(
-                Text(title).foregroundColor(.white)
+                Text(title).foregroundColor(.white).font(.custom(appFont, size: 18))
             )
         
 

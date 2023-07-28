@@ -7,98 +7,131 @@
 
 import Foundation
 import Moya
+import Promises
+ let provider = MoyaProvider<MyService>(endpointClosure: { (target: MyService) -> Endpoint in
+    let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
+    switch target {
+    default:
+        let httpHeaderFields = ["Accept" : "application/json"]
+        return defaultEndpoint.adding(newHTTPHeaderFields: httpHeaderFields)
+    }
+})
+
 enum MyService {
     case login(email: String, password: String)
-    case register(email: String,username:String,phone:String, password: String)
-    case applications
-    case getApplication(Int?)
-    case showUser(id: Int)
-    case showAccounts
+    case loginPhone(number: String, code: String?)
+    case loginUDID(String)
+    case register(email: String,username:String,phone:String, password: String,password_confirmation:String)
+    case applications(Int)
+    case getPlistApp(String)
+    case categories
+    case products(id: Int)
+    case searchProducts(q: String)
+    case featuredProducts
+
+    case slider
+    case purchases
+    case profile
+    case buy([Product])
+    case emailVerification
+    
 }
 extension MyService: TargetType {
-    var baseURL: URL { URL(string: "https://3sr0store.com/api")! }
+    var baseURL: URL {
+        switch self{
+        case .getPlistApp(let url):
+            return URL(string: url)!
+        default:
+            return URL(string: "https://v2.3sr0store.com/api")!
+        }
+    }
     var path: String {
         switch self {
         case .login:
             return "/user/login"
+        case .loginUDID:
+            return "/ipastore/device/login"
         case .register:
             return "/user/register"
         case .applications:
+            return "/ipastore/applications"
+        case .categories:
+            return "/categories"
+        case .products(id: let id):
+            return "/categories/\(id)/products"
+        case .searchProducts:
+            return "/categories-products"
+        case .slider:
+            return "/slider"
+        case .purchases:
+            return "/purchases"
+        case .profile:
             return "/users"
-        case .showAccounts:
-            return "/accounts"
-        case .getApplication(_):
-            return "/accounts"
-        case .showUser(id: _):
-            return "/accounts"
+        case .buy:
+            return "/purchases/create"
+        case .loginPhone:
+            return "/user/login"
+        case .emailVerification:
+            return "/user/email/verification-notification"
+        case .featuredProducts:
+            return "/categories-products"
+        default:
+            return ""
         }
     }
     var method: Moya.Method {
         switch self {
-        case .showAccounts:
+        case .login,.register,.getPlistApp,.buy,.loginUDID,.loginPhone,.emailVerification:
+            return .post
+        case .applications,.categories,.products,.searchProducts,.slider,.purchases,.profile,.featuredProducts:
             return .get
-        case .login,.register,.getApplication:
-            return .post
-        case .applications:
-            return .post
-        case .showUser(id: let id):
-            return .post
+
         }
     }
     var task: Task {
         switch self {
-        case  .showUser, .showAccounts: // Send no parameters
+        case   .categories,.products,.slider,.purchases,.profile: // Send no parameters
             return .requestPlain
-//        case let .updateUser(_, firstName, lastName):  // Always sends parameters in URL, regardless of which HTTP method is used
-//            return .requestParameters(parameters: ["first_name": firstName, "last_name": lastName], encoding: URLEncoding.queryString)
-//        case let .createUser(firstName, lastName): // Always send parameters as JSON in request body
-//            return .requestParameters(parameters: ["first_name": firstName, "last_name": lastName], encoding: JSONEncoding.default)
         case .login(email: let email, password: let password):
+            return .requestParameters(parameters: ["email":email,"password":password,"device_name":"ios"], encoding: URLEncoding.default)
+        case .loginPhone(number: let phone, code: let code):
+            var param:[String:Any] = ["phone_number":phone,"device_name":"ios"]
+            param["verification_code"] = code
+            print(param)
+            return .requestParameters(parameters: param, encoding: URLEncoding.default)
+        case .register(email: let email, username: let username, phone: let phone, password: let password,password_confirmation:let password_confirmation):
+            return .requestParameters(parameters: ["email":email,"name":username,"phone_number":phone,"password":password,"password_confirmation":password_confirmation,"device_name":"IOS"], encoding: URLEncoding.default)
+        case .getPlistApp(_):
             return .requestPlain
-
-        case .register(email: let email, username: let username, phone: let phone, password: let password):
+        case .searchProducts(let q):
+            return .requestParameters(parameters: ["q":q], encoding: URLEncoding.default)
+        case .featuredProducts:
+            return .requestParameters(parameters: ["filter":"featured"], encoding: URLEncoding.default)
+        case .applications(let page):
+            return .requestParameters(parameters: ["page":page], encoding: URLEncoding.default)
+        case .loginUDID(let udid):
+            return .requestParameters(parameters: ["device_udid":udid], encoding: URLEncoding.default)
+        case .buy(let ids):
+            var productIds:[String:Int] = [:]
+            for index in 0..<ids.count{
+                productIds["products[\(ids[index].id)]"] = ids[index].id
+            }
+            return .requestParameters(parameters: productIds, encoding: URLEncoding.default)
+        case .emailVerification:
             return .requestPlain
-
-        case .applications:
-            return .requestPlain
-
-        case .getApplication(_):
-            return .requestPlain
-
         }
     }
-    var sampleData: Data {
-        switch self {
-
-        case .showUser(let id):
-            return "{\"id\": \(id), \"first_name\": \"Harry\", \"last_name\": \"Potter\"}".utf8Encoded
-        case .register(email: let email, username: let username, phone: let phone, password: let password):
-            return "{\"id\": 100, \"first_name\": \"\(email)\", \"last_name\": \"\(username)\"}".utf8Encoded
-        case .login(email: let email, password: let password):
-            return "{\"email\": \(email), \"password\": \"\(password)\"}".utf8Encoded
-        case .showAccounts:
-            // Provided you have a file named accounts.json in your bundle.
-            guard let url = Bundle.main.url(forResource: "accounts", withExtension: "json"),
-                let data = try? Data(contentsOf: url) else {
-                    return Data()
-            }
-            return data
-        case .applications:
-            guard let url = Bundle.main.url(forResource: "accounts", withExtension: "json"),
-                let data = try? Data(contentsOf: url) else {
-                    return Data()
-            }
-            return data
-        case .getApplication(_):
-            guard let url = Bundle.main.url(forResource: "accounts", withExtension: "json"),
-                let data = try? Data(contentsOf: url) else {
-                    return Data()
-            }
-            return data
-        }
-    }
+    
     var headers: [String: String]? {
-        return ["Content-type": "application/json"]
+        switch self{
+        case .getPlistApp:
+//            print(AppTokenCache.get())
+            return ["Accept": "application/json","Authorization": "Bearer \(AppTokenCache.get() ?? "")"]
+        case .applications,.purchases,.profile,.buy:
+            return ["Accept": "application/json","Authorization": "Bearer \(UserProfileCache.get()?.token ?? "")"]
+        default:
+            return ["Accept": "application/json"]
+        }
     }
 }
 // MARK: - Helpers
@@ -108,4 +141,13 @@ private extension String {
     }
 
     var utf8Encoded: Data { Data(self.utf8) }
+}
+extension MyService {
+    func request<R: Codable>(_ response: R.Type) -> R {
+        MoyaProvider<Self>.default().request(self, response: response) as! R
+    }
+
+    func requestWithoutContainer<R: Codable>(_ response: R.Type) -> R {
+        MoyaProvider<Self>.default().requestWithoutContainer(self, response: response) as! R
+    }
 }

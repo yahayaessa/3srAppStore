@@ -9,7 +9,10 @@ import Foundation
 struct Category:Codable,Identifiable{
     var id: Int
     var title:String
-    var image:String
+    var icon:String?
+    var description:String?
+    var sort:Int?
+
     // function parse json data
 
 }
